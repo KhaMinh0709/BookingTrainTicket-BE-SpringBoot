@@ -49,7 +49,7 @@ public class SeatController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/check/{id}")
+    @GetMapping("/check/{id}")
     public ResponseEntity<Boolean> checkSeat(@PathVariable Long id) {
         Boolean isBooked = seatService.checkSeat(id);
         return ResponseEntity.ok(isBooked);

@@ -12,6 +12,7 @@ import com.DevJavaMinh.repository.TicketRepository;
 import com.DevJavaMinh.service.TicketService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -75,6 +76,8 @@ public class TicketServiceIml implements TicketService {
 
     @Override
     public void deleteTicket(Long id) {
-
+       Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException("Ticket not found"));
+        ticketRepository.delete(ticket);
     }
 }
