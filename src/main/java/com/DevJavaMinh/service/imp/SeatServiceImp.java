@@ -11,6 +11,7 @@ import com.DevJavaMinh.service.SeatService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +32,12 @@ public class SeatServiceImp implements SeatService {
     public SeatDto getSeatBySeatNumber(int seatNumber) {
         Seat seat = seatRepository.findBySeatNumber(seatNumber);
         return SeatMapping.mapToSeatDto(seat);
+    }
+
+    @Override
+    public List<SeatDto> getAllSeats() {
+        List<Seat> seats = seatRepository.findAll();
+        return seats.stream().map(SeatMapping::mapToSeatDto).toList();
     }
 
     @Override

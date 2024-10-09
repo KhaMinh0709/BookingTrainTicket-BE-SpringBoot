@@ -55,4 +55,10 @@ public class SeatController {
         return ResponseEntity.ok(isBooked);
     }
 
+    @GetMapping
+    public ResponseEntity<List<SeatDto>> getAllSeats() {
+        List<SeatDto> seats = seatService.getAllSeats();
+        return ResponseEntity.ok(seats);
+    }
+
 }

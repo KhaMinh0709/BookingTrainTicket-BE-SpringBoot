@@ -12,14 +12,13 @@ import com.DevJavaMinh.repository.TicketRepository;
 import com.DevJavaMinh.service.TicketService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class TicketServiceIml implements TicketService {
+public class TicketServiceImp implements TicketService {
 
     private final TicketRepository ticketRepository;
     private final ScheduleRepository scheduleRepository;

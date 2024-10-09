@@ -15,8 +15,8 @@ public class Employee {
     private Long employeeId;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "account_id", nullable = false)
+    private Account account;
 
     private String fullName;
 

@@ -2,19 +2,22 @@ package com.DevJavaMinh.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.management.relation.Role;
 
 @Entity
-@Table(name = "users")
+@Table(name = "accounts")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Getter
+@Setter
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long account_id;
 
     @Column(unique = true, nullable = false)
     private String username;

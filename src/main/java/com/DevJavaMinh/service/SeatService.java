@@ -10,7 +10,7 @@ public interface SeatService {
 
     SeatDto getSeatById(Long id);
     SeatDto getSeatBySeatNumber(int seatNumber);
-
+    List<SeatDto> getAllSeats();
     SeatDto addSeat(SeatDto seatDto);
     SeatDto updateSeat(Long id,SeatDto seatDto);
     void deleteSeat(Long id);
