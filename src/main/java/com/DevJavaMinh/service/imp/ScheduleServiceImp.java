@@ -1,8 +1,10 @@
 package com.DevJavaMinh.service.imp;
 
 import com.DevJavaMinh.dto.ScheduleDto;
+import com.DevJavaMinh.dto.TrainDto;
 import com.DevJavaMinh.exception.NotFoundException;
 import com.DevJavaMinh.mapper.ScheduleMapping;
+import com.DevJavaMinh.mapper.TrainMapping;
 import com.DevJavaMinh.model.Schedule;
 import com.DevJavaMinh.model.Train;
 import com.DevJavaMinh.repository.ScheduleRepository;
@@ -102,8 +104,9 @@ public class ScheduleServiceImp implements ScheduleService {
     }
 
     @Override
-    public List<ScheduleDto> searchSchedules(String departureStation, String arrivalStation, Date departureTime) {
+    public List<TrainDto> searchTrainInSchedules(String departureStation, String arrivalStation, Date departureTime) {
         List<Schedule> schedules = scheduleRepository.findAll();  // Lấy tất cả lịch trình
+
         return schedules.stream()
                 .filter(schedule -> schedule.getDepartureStation().equalsIgnoreCase(departureStation))
                 .filter(schedule -> schedule.getArrivalStation().equalsIgnoreCase(arrivalStation))
@@ -125,9 +128,11 @@ public class ScheduleServiceImp implements ScheduleService {
 
                     return calendar.getTime().equals(searchCalendar.getTime());
                 })
-                .map(ScheduleMapping::mapScheduleDto)
+                .flatMap(schedule -> schedule.getTrains().stream())  // Lấy danh sách tàu từ mỗi lịch trình
+                .map(train -> TrainMapping.maptoTrainDto(train))  // Chuyển đổi mỗi tàu thành TrainDto
                 .collect(Collectors.toList());
     }
+
 
 
 

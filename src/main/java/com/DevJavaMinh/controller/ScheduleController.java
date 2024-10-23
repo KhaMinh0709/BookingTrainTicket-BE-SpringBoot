@@ -1,6 +1,7 @@
 package com.DevJavaMinh.controller;
 
 import com.DevJavaMinh.dto.ScheduleDto;
+import com.DevJavaMinh.dto.TrainDto;
 import com.DevJavaMinh.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,13 +56,13 @@ public class ScheduleController {
         return new ResponseEntity<>("Deleted Schedule", HttpStatus.OK);
     }
     @GetMapping("/search")
-    public ResponseEntity<List<ScheduleDto>> searchSchedules(
+    public ResponseEntity<List<TrainDto>> searchSchedules(
             @RequestParam String departureStation,
             @RequestParam String arrivalStation,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date departureTime) {
 
-        List<ScheduleDto> schedules = scheduleService.searchSchedules(departureStation, arrivalStation, departureTime);
-        return new ResponseEntity<>(schedules, HttpStatus.OK);
+        List<TrainDto> TrainsInScheDule = scheduleService.searchTrainInSchedules(departureStation, arrivalStation, departureTime);
+        return new ResponseEntity<>(TrainsInScheDule, HttpStatus.OK);
     }
 
 

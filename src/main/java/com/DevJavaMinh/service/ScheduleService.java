@@ -1,6 +1,7 @@
 package com.DevJavaMinh.service;
 
 import com.DevJavaMinh.dto.ScheduleDto;
+import com.DevJavaMinh.dto.TrainDto;
 
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,6 @@ public interface ScheduleService {
     ScheduleDto update(Long id,ScheduleDto scheduleDto);
     void deleteScheduleById(Long id);
 
-    List<ScheduleDto> searchSchedules(String departureStation, String arrivalStation, Date departureTime);
+    List<TrainDto> searchTrainInSchedules(String departureStation, String arrivalStation, Date departureTime);
 
 }
