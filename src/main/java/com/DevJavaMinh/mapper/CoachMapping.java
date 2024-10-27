@@ -11,6 +11,7 @@ public class CoachMapping {
         Coach coach = new Coach();
 
         coach.setCoachID(coachDto.getCoachID());
+        coach.setCoachNumber(coachDto.getCoachNumber());
         coach.setTypeCoach(coachDto.getTypeCoach());
 
         return coach;
@@ -21,6 +22,7 @@ public class CoachMapping {
         coachDto.setCoachID(coach.getCoachID());
         coachDto.setTypeCoach(coach.getTypeCoach());
         coachDto.setTrainId(coach.getTrain().getTrainID());
+        coachDto.setCoachNumber(coach.getCoachNumber());
         List<Long> listSeat= coach.getSeats().stream().map(Seat::getSeatID).toList();
         coachDto.setSeatList(listSeat);
 

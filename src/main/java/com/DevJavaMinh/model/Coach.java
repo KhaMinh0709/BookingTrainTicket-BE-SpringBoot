@@ -19,6 +19,7 @@ public class Coach {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long coachID;
+    private Long coachNumber;
 
     private String typeCoach;
 

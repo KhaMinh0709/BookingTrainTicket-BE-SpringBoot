@@ -82,4 +82,11 @@ public class SeatServiceImp implements SeatService {
         return false;
     }
 
+    @Override
+    public List<SeatDto> getSeatByCoach(Long coachID) {
+        Optional<Coach> coach = coachRepository.findById(coachID);
+        List<Seat> listSeatInCoach = seatRepository.findByCoach(coach.orElse(null));
+        return listSeatInCoach.stream().map(SeatMapping::mapToSeatDto).toList();
+    }
+
 }

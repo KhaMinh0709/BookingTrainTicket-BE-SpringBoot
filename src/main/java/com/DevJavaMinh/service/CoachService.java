@@ -9,5 +9,5 @@ public interface CoachService {
     CoachDto getCoachById(Long id);
     CoachDto addCoach(CoachDto coach);
     CoachDto updateCoachById(Long id,CoachDto coach);
-    List<Long> getSeatsByCoachId(Long id);
+    List<CoachDto> getCoachByTrainId(Long id);
 }

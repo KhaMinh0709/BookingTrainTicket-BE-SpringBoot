@@ -1,6 +1,8 @@
 package com.DevJavaMinh.controller;
 
 import com.DevJavaMinh.dto.CoachDto;
+import com.DevJavaMinh.dto.SeatDto;
+import com.DevJavaMinh.model.Coach;
 import com.DevJavaMinh.service.CoachService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,9 +43,16 @@ public class CoachController {
         return ResponseEntity.ok(updatedCoach);
     }
 
-    @GetMapping("/{id}/seats")
-    public ResponseEntity<List<Long>> getSeatsByCoachId(@PathVariable Long id) {
-        List<Long> seatIds = coachService.getSeatsByCoachId(id);
-        return ResponseEntity.ok(seatIds);
+
+    //lấy list toa theo 1 tàu
+    @GetMapping("/train/{trainID}")
+    public ResponseEntity<List<SeatDto>> getAllSeatsByCoach(@PathVariable Long trainID) {
+
+        List<CoachDto> list = coachService.getCoachByTrainId(trainID);
+        return new ResponseEntity(list, HttpStatus.OK);
+
+
+
     }
+
 }

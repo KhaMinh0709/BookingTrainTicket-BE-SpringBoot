@@ -1,5 +1,6 @@
 package com.DevJavaMinh.service;
 
+import com.DevJavaMinh.dto.CoachDto;
 import com.DevJavaMinh.dto.SeatDto;
 import com.DevJavaMinh.dto.TrainDto;
 import com.DevJavaMinh.model.Coach;
@@ -15,5 +16,6 @@ public interface SeatService {
     SeatDto updateSeat(Long id,SeatDto seatDto);
     void deleteSeat(Long id);
     Boolean checkSeat(Long id);
+    List<SeatDto> getSeatByCoach(Long coachID);
 
 }

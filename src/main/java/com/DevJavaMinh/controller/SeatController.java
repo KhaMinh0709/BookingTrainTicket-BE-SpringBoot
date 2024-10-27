@@ -1,8 +1,11 @@
 package com.DevJavaMinh.controller;
 
+import com.DevJavaMinh.dto.CoachDto;
 import com.DevJavaMinh.dto.SeatDto;
+import com.DevJavaMinh.service.CoachService;
 import com.DevJavaMinh.service.SeatService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,6 +62,18 @@ public class SeatController {
     public ResponseEntity<List<SeatDto>> getAllSeats() {
         List<SeatDto> seats = seatService.getAllSeats();
         return ResponseEntity.ok(seats);
+    }
+
+    // laays ghes trong 1 toa
+
+    @GetMapping("/coach/{coachID}")
+    public ResponseEntity<List<SeatDto>> getAllSeatsByCoach(@PathVariable Long coachID) {
+
+        List<SeatDto> list = seatService.getSeatByCoach(coachID);
+       return new ResponseEntity(list, HttpStatus.OK);
+
+
+
     }
 
 }

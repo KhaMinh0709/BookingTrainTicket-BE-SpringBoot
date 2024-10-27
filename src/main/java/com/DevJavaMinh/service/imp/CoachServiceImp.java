@@ -1,6 +1,7 @@
 package com.DevJavaMinh.service.imp;
 
 import com.DevJavaMinh.dto.CoachDto;
+import com.DevJavaMinh.dto.TrainDto;
 import com.DevJavaMinh.exception.NotFoundException;
 import com.DevJavaMinh.mapper.CoachMapping;
 import com.DevJavaMinh.model.Coach;
@@ -84,18 +85,11 @@ public class CoachServiceImp implements CoachService {
 
 
     @Override
-    public List<Long> getSeatsByCoachId(Long coachID) {
-        // Tìm Coach theo ID
-        Coach coach = coachRepository.findById(coachID)
-                .orElseThrow(() -> new NotFoundException("Coach not found"));
-
-        // Tìm danh sách ghế theo đối tượng Coach
-        List<Seat> seats = seatRepository.findByCoach(coach);
-
-        // Trả về danh sách seatID từ các Seat
-        return seats.stream()
-                .map(Seat::getSeatID)
-                .collect(Collectors.toList());
+    public List<CoachDto> getCoachByTrainId(Long trainid) {
+        Train train = trainRepository.findById(trainid)
+                .orElseThrow(() -> new NotFoundException("Train not found"));
+        List<Coach> listCoachInTrain = coachRepository.findCoachByTrain(train);
+        return listCoachInTrain.stream().map(CoachMapping::mapToCoachDto).toList();
     }
 
 

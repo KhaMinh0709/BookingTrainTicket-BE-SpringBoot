@@ -17,6 +17,7 @@ import java.util.List;
 public class CoachDto {
     private Long coachID;
     private String typeCoach;
+    private Long coachNumber;
     private Long trainId;
     private List<Long> seatList;
 }
