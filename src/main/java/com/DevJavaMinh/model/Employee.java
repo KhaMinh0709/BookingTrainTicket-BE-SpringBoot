@@ -16,7 +16,7 @@ public class Employee {
 
     @OneToOne
     @JoinColumn(name = "account_id", nullable = false)
-    private Account account;
+    private User user;
 
     private String fullName;
 

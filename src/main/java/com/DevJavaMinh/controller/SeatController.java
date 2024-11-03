@@ -65,7 +65,6 @@ public class SeatController {
     }
 
     // laays ghes trong 1 toa
-
     @GetMapping("/coach/{coachID}")
     public ResponseEntity<List<SeatDto>> getAllSeatsByCoach(@PathVariable Long coachID) {
 

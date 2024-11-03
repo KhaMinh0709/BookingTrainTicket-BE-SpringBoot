@@ -20,7 +20,7 @@ public class Customer {
 
     @OneToOne
     @JoinColumn(name = "account_id", nullable = false)
-    private Account account;
+    private User user;
 
     private String fullName;
 

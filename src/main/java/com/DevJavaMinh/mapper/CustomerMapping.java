@@ -15,7 +15,7 @@ public class CustomerMapping {
     public static CustomerDto mapToCustomerDto(Customer customer) {
         return new CustomerDto(
                 customer.getCustomerId(),
-                customer.getAccount().getAccount_id(),
+                customer.getUser().getUser_id(),
                 customer.getFullName(),
                 customer.getAddress()
         );
