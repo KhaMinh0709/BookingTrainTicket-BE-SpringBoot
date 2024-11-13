@@ -8,7 +8,6 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "accounts")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

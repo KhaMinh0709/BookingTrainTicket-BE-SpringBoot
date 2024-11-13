@@ -1,6 +1,5 @@
 package com.DevJavaMinh.dto;
 
-import com.DevJavaMinh.model.Train;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +14,22 @@ import java.util.List;
 @Setter
 public class ScheduleDto {
     private Long scheduleID;
-    private List<Long> trainID;
-    private Date departureTime;
-    private Date arrivalTime;
     private String departureStation;
     private String arrivalStation;
-    private double price;
+    private List<ScheduleTrainDto> scheduleTrains;
 
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    public static class ScheduleTrainDto {
+        private Long trainID;
+        private String trainName;
+        private int capacityTrain;
+        private Date departureTime;
+        private Date arrivalTime;
+        private double price;
+    }
 }
+
+

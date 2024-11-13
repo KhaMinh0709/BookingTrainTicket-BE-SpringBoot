@@ -3,7 +3,6 @@ package com.DevJavaMinh.controller;
 import com.DevJavaMinh.dto.ScheduleDto;
 import com.DevJavaMinh.dto.TrainDto;
 import com.DevJavaMinh.service.ScheduleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,16 +49,16 @@ public class ScheduleController {
         scheduleService.deleteScheduleById(id);
         return new ResponseEntity<>("Deleted Schedule", HttpStatus.OK);
     }
-    @GetMapping("/search")
-    public ResponseEntity<List<TrainDto>> searchSchedules(
+
+    @GetMapping("search")
+    public ResponseEntity<List<TrainDto>> findTrainsByScheduleAndDepartureTime(
             @RequestParam String departureStation,
             @RequestParam String arrivalStation,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date departureTime) {
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date departureTime) {
 
-        List<TrainDto> TrainsInScheDule = scheduleService.searchTrainInSchedules(departureStation, arrivalStation, departureTime);
-        return new ResponseEntity<>(TrainsInScheDule, HttpStatus.OK);
+        List<TrainDto> trains = scheduleService.findTrainsInScheDuleOneWay(departureStation, arrivalStation, departureTime);
+        return ResponseEntity.ok(trains);
     }
-
 
 }
 

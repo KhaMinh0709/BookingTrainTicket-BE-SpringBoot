@@ -13,6 +13,6 @@ public interface ScheduleService {
     ScheduleDto update(Long id,ScheduleDto scheduleDto);
     void deleteScheduleById(Long id);
 
-    List<TrainDto> searchTrainInSchedules(String departureStation, String arrivalStation, Date departureTime);
+    List<TrainDto> findTrainsInScheDuleOneWay(String departureStation, String arrivalStation, Date departureTime);
 
 }

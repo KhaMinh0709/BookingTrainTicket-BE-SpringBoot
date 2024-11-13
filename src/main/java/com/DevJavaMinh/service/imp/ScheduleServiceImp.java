@@ -6,17 +6,16 @@ import com.DevJavaMinh.exception.NotFoundException;
 import com.DevJavaMinh.mapper.ScheduleMapping;
 import com.DevJavaMinh.mapper.TrainMapping;
 import com.DevJavaMinh.model.Schedule;
+
+import com.DevJavaMinh.model.ScheduleTrain;
 import com.DevJavaMinh.model.Train;
 import com.DevJavaMinh.repository.ScheduleRepository;
-import com.DevJavaMinh.repository.TrainRepository;
 import com.DevJavaMinh.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,8 +24,6 @@ public class ScheduleServiceImp implements ScheduleService {
     @Autowired
     private ScheduleRepository scheduleRepository;
 
-    @Autowired
-    private TrainRepository trainRepository; // Để lấy Train từ repository
 
     @Override
     public List<ScheduleDto> getAllSchedules() {
@@ -45,25 +42,14 @@ public class ScheduleServiceImp implements ScheduleService {
 
     @Override
     public ScheduleDto create(ScheduleDto scheduleDto) {
-        // Chuyển đổi ScheduleDto sang Schedule
+        // Chuyển đổi từ DTO sang entity
         Schedule schedule = ScheduleMapping.mapSchedule(scheduleDto);
 
-        // Lưu lịch trình vào cơ sở dữ liệu
+        // Lưu lịch trình và các ScheduleTrain kèm theo
         Schedule savedSchedule = scheduleRepository.save(schedule);
 
-        // Cập nhật bảng liên kết schedule_train
-        if (scheduleDto.getTrainID() != null && !scheduleDto.getTrainID().isEmpty()) {
-            List<Train> trains = trainRepository.findAllById(scheduleDto.getTrainID());
-            savedSchedule.setTrains(trains);
-        }else{
-            new NotFoundException("Schedule not found");
-        }
-
-        // Lưu lại lịch trình đã cập nhật với danh sách tàu
-        Schedule updatedSchedule = scheduleRepository.save(savedSchedule);
-
-        // Trả về DTO sau khi tạo
-        return ScheduleMapping.mapScheduleDto(updatedSchedule);
+        // Chuyển đổi kết quả đã lưu sang DTO và trả về
+        return ScheduleMapping.mapScheduleDto(savedSchedule);
     }
 
 
@@ -74,18 +60,22 @@ public class ScheduleServiceImp implements ScheduleService {
         Schedule existingSchedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Schedule not found"));
 
-        // Cập nhật các trường cần thiết
-        existingSchedule.setArrivalStation(scheduleDto.getArrivalStation());
-        existingSchedule.setDepartureStation(scheduleDto.getDepartureStation());
-        existingSchedule.setPrice(scheduleDto.getPrice());
-        existingSchedule.setDepartureTime(scheduleDto.getDepartureTime());
-        existingSchedule.setArrivalTime(scheduleDto.getArrivalTime());
+        // Chuyển đổi List<ScheduleTrainDto> thành List<ScheduleTrain>
+        List<ScheduleTrain> scheduleTrains = scheduleDto.getScheduleTrains().stream()
+                .map(dto -> {
+                    ScheduleTrain scheduleTrain = new ScheduleTrain();
+                    Train train = new Train();
+                    train.setTrainID(dto.getTrainID()); // Chỉ định ID của tàu
+                    scheduleTrain.setTrain(train); // Liên kết với đối tượng Train
+                    scheduleTrain.setDepartureTime(dto.getDepartureTime());
+                    scheduleTrain.setArrivalTime(dto.getArrivalTime());
+                    scheduleTrain.setPrice(dto.getPrice());
+                    scheduleTrain.setSchedule(existingSchedule); // Liên kết với đối tượng Schedule
+                    return scheduleTrain;
+                }).collect(Collectors.toList());
 
-        // Nếu cần cập nhật tàu, lấy danh sách tàu mới từ DTO
-        List<Train> trains = trainRepository.findAllById(scheduleDto.getTrainID());
-        if (!trains.isEmpty()) {
-            existingSchedule.setTrains(trains);
-        }
+        // Cập nhật lại danh sách ScheduleTrain trong Schedule
+        existingSchedule.setScheduleTrains(scheduleTrains);
 
         // Lưu lại thay đổi
         Schedule updatedSchedule = scheduleRepository.save(existingSchedule);
@@ -93,6 +83,7 @@ public class ScheduleServiceImp implements ScheduleService {
         // Trả về DTO sau khi cập nhật
         return ScheduleMapping.mapScheduleDto(updatedSchedule);
     }
+
 
 
     @Override
@@ -104,34 +95,16 @@ public class ScheduleServiceImp implements ScheduleService {
     }
 
     @Override
-    public List<TrainDto> searchTrainInSchedules(String departureStation, String arrivalStation, Date departureTime) {
-        List<Schedule> schedules = scheduleRepository.findAll();  // Lấy tất cả lịch trình
-
-        return schedules.stream()
-                .filter(schedule -> schedule.getDepartureStation().equalsIgnoreCase(departureStation))
-                .filter(schedule -> schedule.getArrivalStation().equalsIgnoreCase(arrivalStation))
-                .filter(schedule -> {
-                    // So sánh ngày đi không tính giờ
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(schedule.getDepartureTime());
-                    calendar.set(Calendar.HOUR_OF_DAY, 0);
-                    calendar.set(Calendar.MINUTE, 0);
-                    calendar.set(Calendar.SECOND, 0);
-                    calendar.set(Calendar.MILLISECOND, 0);
-
-                    Calendar searchCalendar = Calendar.getInstance();
-                    searchCalendar.setTime(departureTime);
-                    searchCalendar.set(Calendar.HOUR_OF_DAY, 0);
-                    searchCalendar.set(Calendar.MINUTE, 0);
-                    searchCalendar.set(Calendar.SECOND, 0);
-                    searchCalendar.set(Calendar.MILLISECOND, 0);
-
-                    return calendar.getTime().equals(searchCalendar.getTime());
-                })
-                .flatMap(schedule -> schedule.getTrains().stream())  // Lấy danh sách tàu từ mỗi lịch trình
-                .map(train -> TrainMapping.maptoTrainDto(train))  // Chuyển đổi mỗi tàu thành TrainDto
+    public List<TrainDto> findTrainsInScheDuleOneWay(String departureStation, String arrivalStation, Date departureTime) {
+        List<Train> listTrain = scheduleRepository.findTrainsByScheduleAndDepartureDate(
+                departureStation, arrivalStation, departureTime);
+        return listTrain.stream()
+                .map(TrainMapping::maptoTrainDto)
                 .collect(Collectors.toList());
     }
+
+
+
 
 
 

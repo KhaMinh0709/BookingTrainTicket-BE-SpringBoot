@@ -5,15 +5,16 @@ import com.DevJavaMinh.model.Train;
 
 public class TrainMapping {
     public static Train maptoTrain(TrainDto trainDto){
-        return  new Train(
+        return new Train(
                 trainDto.getTrainID(),
                 trainDto.getTrainName(),
+                null,
                 trainDto.getCapacityTrain()
         );
     }
 
     public static TrainDto maptoTrainDto(Train train){
-        return  new TrainDto(
+        return new TrainDto(
                 train.getTrainID(),
                 train.getTrainName(),
                 train.getCapacityTrain()

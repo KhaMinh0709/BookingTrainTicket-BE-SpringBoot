@@ -17,12 +17,15 @@ import java.util.List;
 public class Train {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "trainID")
     private Long trainID;
 
-    @Column(name = "trainName", nullable = false, unique = true)
     private String trainName;
+
+    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
+    private List<ScheduleTrain> scheduleTrains;
 
     @Column(name = "capacityTrain", nullable = false)
     private int capacityTrain;
-    
+
 }

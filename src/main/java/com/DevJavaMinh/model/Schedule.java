@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,16 +20,9 @@ public class Schedule {
     @Column(name = "scheduleID")
     private Long scheduleID;
 
-    @ManyToMany
-    @JoinTable(name = "schedule_train",
-            joinColumns = @JoinColumn(name = "scheduleID"),
-            inverseJoinColumns = @JoinColumn(name = "trainID"))
-    private List<Train> trains;
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
+    private List<ScheduleTrain> scheduleTrains;
 
-    private Date departureTime;
-    private Date arrivalTime;
     private String departureStation;
     private String arrivalStation;
-    private double price;
 }
-
