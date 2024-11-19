@@ -7,5 +7,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface ScheduleTrainService {
-    List<ScheduleDto> getTrainsByScheduleCriteria(String departureStation, String arrivalStation, Date departureTime);
+//    List<ScheduleDto> getTrainsByScheduleCriteria(String departureStation, String arrivalStation, Date departureTime);
 }

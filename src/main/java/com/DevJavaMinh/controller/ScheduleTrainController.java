@@ -24,13 +24,13 @@ public class ScheduleTrainController {
     @Autowired
     private ScheduleTrainService scheduleTrainService;
 
-    @GetMapping("/search")
-    public ResponseEntity<List<TrainDto>> getTrainsBySchedule(@RequestParam String departureStation,
-                                                              @RequestParam String arrivalStation,
-                                                              @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date departureTime) {
-        return new ResponseEntity<>(scheduleTrainService.getTrainsByScheduleCriteria
-                (departureStation, arrivalStation, departureTime),
-                HttpStatus.OK);
-    }
+//    @GetMapping("/search")
+//    public ResponseEntity<List<TrainDto>> getTrainsBySchedule(@RequestParam String departureStation,
+//                                                              @RequestParam String arrivalStation,
+//                                                              @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date departureTime) {
+//        return new ResponseEntity<>(scheduleTrainService.getTrainsByScheduleCriteria
+//                (departureStation, arrivalStation, departureTime),
+//                HttpStatus.OK);
+//    }
 }
 

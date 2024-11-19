@@ -17,3 +17,4 @@ public class SwaggerConfig {
                         .description("API documentation for Booking Trains Ticket"));
     }
 }
+

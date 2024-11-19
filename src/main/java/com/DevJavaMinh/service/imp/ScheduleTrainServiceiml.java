@@ -20,7 +20,7 @@ public class ScheduleTrainServiceiml implements ScheduleTrainService {
     @Autowired
     private ScheduleTrainRepository scheduleTrainRepository;
 
-    public List<ScheduleDto> getTrainsByScheduleCriteria(String departureStation, String arrivalStation, Date departureTime) {
-         List<ScheduleTrain> list = scheduleTrainRepository.findTrainsByDateAndStations(departureStation, arrivalStation, departureTime);
-    }
+//    public List<ScheduleDto> getTrainsByScheduleCriteria(String departureStation, String arrivalStation, Date departureTime) {
+//         List<ScheduleTrain> list = scheduleTrainRepository.findTrainsByDateAndStations(departureStation, arrivalStation, departureTime);
+//    }
 }
