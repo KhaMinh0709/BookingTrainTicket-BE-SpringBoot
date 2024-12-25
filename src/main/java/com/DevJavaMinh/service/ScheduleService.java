@@ -13,6 +13,5 @@ public interface ScheduleService {
     ScheduleDto update(Long id,ScheduleDto scheduleDto);
     void deleteScheduleById(Long id);
 
-    List<TrainDto> findTrainsInScheDuleOneWay(String departureStation, String arrivalStation, Date departureTime);
 
 }

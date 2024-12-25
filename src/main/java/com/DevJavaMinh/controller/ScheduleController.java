@@ -50,15 +50,6 @@ public class ScheduleController {
         return new ResponseEntity<>("Deleted Schedule", HttpStatus.OK);
     }
 
-    @GetMapping("search")
-    public ResponseEntity<List<TrainDto>> findTrainsByScheduleAndDepartureTime(
-            @RequestParam String departureStation,
-            @RequestParam String arrivalStation,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date departureTime) {
-
-        List<TrainDto> trains = scheduleService.findTrainsInScheDuleOneWay(departureStation, arrivalStation, departureTime);
-        return ResponseEntity.ok(trains);
-    }
 
 }
 

@@ -4,6 +4,7 @@ import com.DevJavaMinh.dto.UserDto;
 import com.DevJavaMinh.model.Role;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     UserDto createUser(UserDto userDto);

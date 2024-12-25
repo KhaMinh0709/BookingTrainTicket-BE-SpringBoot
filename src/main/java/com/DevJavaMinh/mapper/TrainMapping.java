@@ -8,7 +8,6 @@ public class TrainMapping {
         return new Train(
                 trainDto.getTrainID(),
                 trainDto.getTrainName(),
-                null,
                 trainDto.getCapacityTrain()
         );
     }

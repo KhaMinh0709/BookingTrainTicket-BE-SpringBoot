@@ -20,9 +20,6 @@ public class Schedule {
     @Column(name = "scheduleID")
     private Long scheduleID;
 
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
-    private List<ScheduleTrain> scheduleTrains;
-
     private String departureStation;
     private String arrivalStation;
 }

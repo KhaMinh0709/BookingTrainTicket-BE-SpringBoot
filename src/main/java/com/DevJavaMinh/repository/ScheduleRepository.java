@@ -13,16 +13,6 @@ import java.util.List;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-    @Query("SELECT st.train FROM Schedule s " +
-            "JOIN s.scheduleTrains st " +
-            "WHERE s.departureStation = :departureStation " +
-            "AND s.arrivalStation = :arrivalStation " +
-            "AND FUNCTION('DATE', st.departureTime) = :departureDate")
-    List<Train> findTrainsByScheduleAndDepartureDate(
-            @Param("departureStation") String departureStation,
-            @Param("arrivalStation") String arrivalStation,
-            @Param("departureDate") Date departureDate);
-
 
 }
 

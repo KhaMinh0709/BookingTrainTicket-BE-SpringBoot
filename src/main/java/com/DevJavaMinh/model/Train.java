@@ -22,9 +22,6 @@ public class Train {
 
     private String trainName;
 
-    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
-    private List<ScheduleTrain> scheduleTrains;
-
     @Column(name = "capacityTrain", nullable = false)
     private int capacityTrain;
 

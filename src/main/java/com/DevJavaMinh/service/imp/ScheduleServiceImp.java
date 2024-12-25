@@ -60,23 +60,9 @@ public class ScheduleServiceImp implements ScheduleService {
         Schedule existingSchedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Schedule not found"));
 
-        // Chuyển đổi List<ScheduleTrainDto> thành List<ScheduleTrain>
-        List<ScheduleTrain> scheduleTrains = scheduleDto.getScheduleTrains().stream()
-                .map(dto -> {
-                    ScheduleTrain scheduleTrain = new ScheduleTrain();
-                    Train train = new Train();
-                    train.setTrainID(dto.getTrainID()); // Chỉ định ID của tàu
-                    scheduleTrain.setTrain(train); // Liên kết với đối tượng Train
-                    scheduleTrain.setDepartureTime(dto.getDepartureTime());
-                    scheduleTrain.setArrivalTime(dto.getArrivalTime());
-                    scheduleTrain.setPrice(dto.getPrice());
-                    scheduleTrain.setSchedule(existingSchedule); // Liên kết với đối tượng Schedule
-                    return scheduleTrain;
-                }).collect(Collectors.toList());
-
-        // Cập nhật lại danh sách ScheduleTrain trong Schedule
-        existingSchedule.setScheduleTrains(scheduleTrains);
-
+        //
+        scheduleDto.setArrivalStation(scheduleDto.getArrivalStation());
+        scheduleDto.setDepartureStation(scheduleDto.getDepartureStation());
         // Lưu lại thay đổi
         Schedule updatedSchedule = scheduleRepository.save(existingSchedule);
 
@@ -93,20 +79,5 @@ public class ScheduleServiceImp implements ScheduleService {
         }
         scheduleRepository.deleteById(id);
     }
-
-    @Override
-    public List<TrainDto> findTrainsInScheDuleOneWay(String departureStation, String arrivalStation, Date departureTime) {
-        List<Train> listTrain = scheduleRepository.findTrainsByScheduleAndDepartureDate(
-                departureStation, arrivalStation, departureTime);
-        return listTrain.stream()
-                .map(TrainMapping::maptoTrainDto)
-                .collect(Collectors.toList());
-    }
-
-
-
-
-
-
 
 }
