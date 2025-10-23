@@ -24,23 +24,24 @@ public class CoachServiceImp implements CoachService {
     private CoachRepository coachRepository;
     private SeatRepository seatRepository;
     private TrainRepository trainRepository;
+    private CoachMapping coachMapping;
 
     @Override
     public List<CoachDto> getAllCoaches() {
         List<Coach> coaches = coachRepository.findAll();
 
-        return coaches.stream().map(CoachMapping::mapToCoachDto).toList();
+        return coaches.stream().map(coachMapping::toDto).toList();
     }
 
     @Override
     public CoachDto getCoachById(Long id) {
         Coach coach = coachRepository.findById(id).orElseThrow(()-> new NotFoundException("not found Coach"));
-        return CoachMapping.mapToCoachDto(coach);
+        return coachMapping.toDto(coach);
     }
 
     @Override
     public CoachDto addCoach(CoachDto coachDto) {
-        Coach coachEntity = CoachMapping.mapToCoach(coachDto);
+        Coach coachEntity = coachMapping.mapToCoach(coachDto);
 
         // Lấy đối tượng Train từ trainId
         Train train = trainRepository.findById(coachDto.getTrainId())
@@ -50,7 +51,7 @@ public class CoachServiceImp implements CoachService {
         List<Seat> seats = seatRepository.findAllById(coachDto.getSeatList());
         coachEntity.setSeats(seats);
         Coach coachSave = coachRepository.save(coachEntity);
-        return CoachMapping.mapToCoachDto(coachSave);
+        return coachMapping.toDto(coachSave);
     }
 
 
@@ -80,7 +81,7 @@ public class CoachServiceImp implements CoachService {
         Coach updatedCoach = coachRepository.save(coach);
 
         // Chuyển đổi Coach thành CoachDto để trả về
-        return CoachMapping.mapToCoachDto(updatedCoach);
+        return coachMapping.toDto(updatedCoach);
     }
 
 
@@ -89,7 +90,7 @@ public class CoachServiceImp implements CoachService {
         Train train = trainRepository.findById(trainid)
                 .orElseThrow(() -> new NotFoundException("Train not found"));
         List<Coach> listCoachInTrain = coachRepository.findCoachByTrain(train);
-        return listCoachInTrain.stream().map(CoachMapping::mapToCoachDto).toList();
+        return listCoachInTrain.stream().map(coachMapping::toDto).toList();
     }
 
 

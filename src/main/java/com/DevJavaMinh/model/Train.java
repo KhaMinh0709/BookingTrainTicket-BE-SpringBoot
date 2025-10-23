@@ -25,4 +25,7 @@ public class Train {
     @Column(name = "capacityTrain", nullable = false)
     private int capacityTrain;
 
+    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Coach> coaches;
+
 }

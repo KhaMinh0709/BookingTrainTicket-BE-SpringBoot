@@ -15,23 +15,24 @@ import java.util.List;
 @AllArgsConstructor
 public class TrainServiceImp implements TrainService {
     private final TrainRepository trainRepository;
+    private final TrainMapping trainMapping;
     @Override
     public List<TrainDto> getAllTrain() {
         List<Train> list = trainRepository.findAll();
-        return list.stream().map(TrainMapping::maptoTrainDto).toList();
+        return list.stream().map(trainMapping::maptoTrainDto).toList();
     }
 
     @Override
     public TrainDto getTrainById(Long id) {
         Train train = trainRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("not found train"));
-        return TrainMapping.maptoTrainDto(train);
+        return trainMapping.maptoTrainDto(train);
     }
 
     @Override
     public TrainDto addTrain(TrainDto train) {
-        Train trainSave = trainRepository.save(TrainMapping.maptoTrain(train));
-        return TrainMapping.maptoTrainDto(trainSave);
+        Train trainSave = trainRepository.save(trainMapping.maptoTrain(train));
+        return trainMapping.maptoTrainDto(trainSave);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class TrainServiceImp implements TrainService {
         train.setCapacityTrain(trainDto.getCapacityTrain());
 
         Train savedTrain = trainRepository.save(train);
-        return TrainMapping.maptoTrainDto(savedTrain);
+        return trainMapping.maptoTrainDto(savedTrain);
     }
 
     @Override

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thmeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán thành công</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="" th:href="@{/css/style-pro.css}">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-container">
+            </div>
+            
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#" th:href="@{/DatVe}">Đặt Vé</a></li>
+                    <li><a href="#">Tra Cứu Thông Tin Vé</a></li>
+                    <li><a href="#">Nhà Ga</a></li>
+                    <li><a href="#">Tìm Du Lịch</a></li>
+                    <li><a href="#">Khuyến Mãi</a></li>
+                    <li><a href="#">Liên Hệ Với Chúng Tôi</a></li>
+                </ul>
+            </nav>
+
+            <a href="#" class="login-btn">Đăng Nhập</a>
+        </div>
+    </header>
+    <div class="main-box payment-success-container">
+        <div class="success-icon-box">
+            <i class="fas fa-check-circle success-icon"></i> 
+        </div>
+        <h2 class="payment-title">Thanh toán thành công 🎉</h2>
+        <h4 class="payment-subtitle">Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</h4>
+        <p class="payment-info">Vé của bạn đã được gửi đến email:</p>
+        <p class="user-email-display">nguyenkhaminh9c@gmail.com</p>
+        
+        <p class="contact-prompt">
+            Nếu bạn gặp bất kỳ sự cố nào, vui lòng liên hệ hỗ trợ: 
+            <a href="mailto:khaminh.developer0709@gmail.com" class="support-link">khaminh.developer0709@gmail.com</a>
+        </p>
+
+        <a href="http://localhost:5173/DatVe" id="return-page-btn" class="return-btn">
+            <i class="fas fa-arrow-left"></i> Trở về trang mua vé tàu
+        </a>
+    </div>
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col footer-info">
+                <div class="logo-container">
+                    <img src="placeholder-logo-footer.png" th:src="@{/images/logo-vnr-circle.png}" alt="Logo KhaMinhStation" class="footer-logo">
+                </div>
+                <p class="company-desc">
+                    **KhaMinhStation** là nền tảng đặt vé tàu **nhanh chóng và chính xác**.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-heading">Chăm sóc khách hàng</h4>
+                <ul>
+                    <li><a href="#">Hướng dẫn thanh toán</a></li>
+                    <li><a href="#">Điều kiện giao dịch chung</a></li>
+                    <li><a href="#">Quy trình sử dụng dịch vụ</a></li>
+                    <li><a href="#">Chính sách bảo hành</a></li>
+                    <li><a href="#">Chính sách hoàn trả hàng</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-heading">Thông tin</h4>
+                <ul>
+                    <li><a href="#">Điều khoản sử dụng</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 class="footer-heading">Trợ giúp</h4>
+                <ul>
+                    <li><a href="#">Trợ giúp</a></li>
+                    <li><a href="#">Liên hệ chúng tôi</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; <span id="currentYear">2025</span> KhaMinhStation. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        // Cập nhật năm hiện tại cho footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+    <script src="" th:src="@{/js/script.js}"></script>
+</body>
+</html>
