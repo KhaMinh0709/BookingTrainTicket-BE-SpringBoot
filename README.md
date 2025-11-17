@@ -93,8 +93,4 @@ If you want to contribute, please open an issue or a pull request. Include a cle
 **License**
 This repository does not contain an explicit license. Add a `LICENSE` file if you intend to make this project open source.
 
----
-If you want, I can also:
-- add an OpenAPI/Swagger sample config and a `docs/` folder with example requests,
-- or run a quick local start to verify the service boots (please confirm you want me to run Maven on your machine).
 
